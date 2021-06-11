@@ -5,5 +5,3 @@ Studentenverwaltung
 EMRE HAHA
 
 Test
-
-Hallo
