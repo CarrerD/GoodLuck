@@ -1,4 +1,4 @@
 # GoodLuck
 Small Project
 
-Studentenverwaltung.
+Studentenverwaltung
