@@ -1,9 +1,7 @@
 # GoodLuck
 Small Project
 
-Studentenverwaltung
-EMRE HAHA
+Hallo Zusammen :)
 
-Hallo
-
-Hello
+Willkommmen zum Projekt!
+ENJOY HAVING FUN HERE
