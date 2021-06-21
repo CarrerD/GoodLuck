@@ -40,7 +40,7 @@ public class UserController {
         User updateUser = userRepository.findById(user.getId()).orElse(null);
         updateUser.setName(user.getName());
         updateUser.setEmail(user.getEmail());
-        updateUser.setPassword(user.getPassword());
+        updateUser.setPlace(user.getPlace());
         return userRepository.save(updateUser);
     }
 
