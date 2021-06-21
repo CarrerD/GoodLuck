@@ -39,6 +39,7 @@ public class UserController {
     public User putUser(@RequestBody User user) {
         User updateUser = userRepository.findById(user.getId()).orElse(null);
         updateUser.setName(user.getName());
+        updateUser.setEid(user.getEid());
         updateUser.setEmail(user.getEmail());
         updateUser.setPlace(user.getPlace());
         return userRepository.save(updateUser);
