@@ -85,22 +85,22 @@ class App extends React.Component {
             <form onSubmit={(e) => this.submit(e, this.state.id)}>
               <div class="input-field col s12">
                 <i class="material-icons prefix">work</i>
-                <input onChange={(e) => this.setState({ eid: e.target.value })} value={this.state.eid} type="text" id="autocomplete-input" class="autocomplete" />
+                <input onChange={(e) => this.setState({ eid: e.target.value })} value={this.state.eid} type="text" id="personalnummer" class="autocomplete" />
                 <label for="autocomplete-input">Personalnummer</label>
               </div>
               <div class="input-field col s12">
                 <i class="material-icons prefix">person</i>
-                <input onChange={(e) => this.setState({ name: e.target.value })} value={this.state.name} type="text" id="autocomplete-input" class="autocomplete" />
+                <input onChange={(e) => this.setState({ name: e.target.value })} value={this.state.name} type="text" id="fullname" class="autocomplete" />
                 <label for="autocomplete-input">Name</label>
               </div>
               <div class="input-field col s12">
                 <i class="material-icons prefix">email</i>
-                <input onChange={(e) => this.setState({ email: e.target.value })} value={this.state.email} type="email" id="autocomplete-input" class="autocomplete" />
+                <input onChange={(e) => this.setState({ email: e.target.value })} value={this.state.email} type="email" id="email" class="autocomplete" />
                 <label for="autocomplete-input">E-Mail</label>
               </div>
               <div class="input-field col s12">
                 <i class="material-icons prefix">place</i>
-                <input onChange={(e) => this.setState({ place: e.target.value })} value={this.state.place} type="text" id="autocomplete-input" class="autocomplete" />
+                <input onChange={(e) => this.setState({ place: e.target.value })} value={this.state.place} type="text" id="einsatzort" class="autocomplete" />
                 <label for="autocomplete-input">Einsatzort</label>
               </div>
               <button class="btn waves-effect waves-light right" type="submit" name="action">Absenden
