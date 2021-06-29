@@ -1,6 +1,8 @@
 package de.sogeti.backend;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -32,8 +34,19 @@ public class UserController {
 
     @PostMapping("/")
     public User postUser(@RequestBody User user) {
+        Optional<User> userOptional = userRepository.
+                findStudentByEmail(user.getEmail());
+        
+        Optional<User> userEid = userRepository.
+        		findEid(user.getEid());
+        
+        if (userOptional.isPresent() || userEid.isPresent()) {
+        	throw new IllegalStateException("email existiert");
+        }
+    
         return userRepository.save(user);
     }
+    
 
     @PutMapping("/")
     public User putUser(@RequestBody User user) {

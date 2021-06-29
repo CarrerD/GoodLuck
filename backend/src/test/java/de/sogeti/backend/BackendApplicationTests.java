@@ -1,79 +1,94 @@
 package de.sogeti.backend;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-
 @SpringBootTest
 @TestMethodOrder(OrderAnnotation.class)
 class BackendApplicationTests {
-	
-	int eid = 2000;
-	
-	public int getId() {
-		int id = 0;
-		List<User> userList = userRepo.findAll();
-		for (User user : userList) {
-			if(user.getEid() == eid) 
-				id = user.getId();
-			}
-		return id;
-	}
+
+	@Autowired
+	UserController userController;
 	
 	@Autowired
-	UserRepository userRepo;
+	UserRepository userRepository;
+	
+	int id = 0;
+	int eid = 111111;
+	
+	public int getCurrenId() {
+		
+	    List<User> allUser = userController.getUsers();
+	    for (User user : allUser) {
+			if(user.getEid() == eid) {
+				id = user.getId();
+			}
+		}
+	    return id;
+	}
+	
+	@Test
+	@Order(1)
+	public void testSaveNewUser() {
+		User user = new User(1, 111111, "User", "user@sogeti.de", "added");
+	    Optional<User> userOptional = userRepository.
+	            findStudentByEmail(user.getEmail());
+	    Optional<User> userEid = userRepository.
+	    		findEid(user.getEid());
+        if (userOptional.isPresent() || userEid.isPresent()) {
+        }
+		User saveUser = userController.postUser(user);
+		assertNotNull(saveUser);
+		
+	}
 
 	@Test
-	public void testSaveNewUser() {
-		User user = new User(1020,2000,"Hallo2aa","junit2@sogeti.de","hallotest2");
-		User saveUser = userRepo.save(user);
-		assertNotNull(saveUser);
-	}
-		
-	@Test
+	@Order(2)
 	public void testFindAll() {
-		List<User> userList = userRepo.findAll();
-		assertThat(userList).size().isGreaterThan(0);	
+		List<User> userList = userController.getUsers();
+		assertThat(userList).size().isGreaterThan(0);
 	}
-	
-	
+
 	@Test
-	public void testFindById(){
-		int id = getId();
-		User user = userRepo.findById(id).get();
-		assertEquals("Ucal Emre", user.getName());
+	@Order(3)
+	public void testFindById() {
+		int findeId = getCurrenId();
+		User user = userController.getUser(findeId);
+		System.out.println(findeId);
+		assertEquals("User", user.getName());
 	}
-	
+
 	@Test
+	@Order(4)
 	public void testUpdateUser() {
-		int id = getId();
-		System.out.println(id);
-		User user = userRepo.findById(id).get();
+		int findeId = getCurrenId();
+		System.out.println(findeId);
+		User user = userController.getUser(findeId);
+		user.setEid(111111);
 		user.setEmail("emre@sogeti.de");
 		user.setName("Ucal Emre");
 		user.setPlace("Frankfurt");
-		userRepo.save(user);
-		assertNotEquals("München", userRepo.findById(id).get().getPlace());
+		User savedUser = userController.putUser(user);
+		assertThat(savedUser.getEmail().isBlank());
 	}
-	
-	
-	
-	@Test
-	public void testDeleteById(){
-		int id = getId();
-		userRepo.deleteById(id);
-		assertThat(userRepo.existsById(id)).isFalse();
-	}
-	
 
-}
+	@Test
+	@Order(5)
+	public void testDeleteById() {
+		int findeId = getCurrenId();
+		userController.deleteUser(findeId);
+//		assertThat(findeId).isNegative();
+		assertThat(userRepository.existsById(findeId));
+	}}

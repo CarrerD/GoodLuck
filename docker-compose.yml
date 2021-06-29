@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  mysql-standalone1:
+    image: mysql:5.7
+    environment:
+    - MYSQL_ROOT_PASSWORD=admin123 
+    - MYSQL_DATABASE=test 
+    - MYSQL_USER=testuser 
+    - MYSQL_PASSWORD=testuser@123
+  springboot-docker-container:
+   image: springboot-docker-container
+   ports:
+     - 8080:8080
+   build:
+     context: ./backend
+     dockerfile: Dockerfile
+   depends_on:
+     - mysql-standalone1    
+
+  frontend-docker-container:
+   image: frontend-docker-container
+   ports:
+     - 3000:3000
+   build:
+     context: ./frontend
+     dockerfile: Dockerfile     

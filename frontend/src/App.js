@@ -72,6 +72,8 @@ class App extends React.Component {
         })
       })
   }
+  
+
   render() {
     return (
       <div className="container" >
@@ -85,27 +87,29 @@ class App extends React.Component {
             <form onSubmit={(e) => this.submit(e, this.state.id)}>
               <div class="input-field col s12">
                 <i class="material-icons prefix">work</i>
-                <input onChange={(e) => this.setState({ eid: e.target.value })} value={this.state.eid} type="text" id="personalnummer" class="autocomplete" />
+                <input onChange={(e) => this.setState({ eid: e.target.value })} value={this.state.eid} type="text" id="personalnummer" pattern="[0-9]{4}"  class="autocomplete" required/>
                 <label for="autocomplete-input">Personalnummer</label>
               </div>
               <div class="input-field col s12">
                 <i class="material-icons prefix">person</i>
-                <input onChange={(e) => this.setState({ name: e.target.value })} value={this.state.name} type="text" id="fullname" class="autocomplete" />
+                <input onChange={(e) => this.setState({ name: e.target.value })} value={this.state.name} type="text" id="fullname" pattern="[A-Za-z]{3,30}" class="autocomplete"  required/>
                 <label for="autocomplete-input">Name</label>
               </div>
               <div class="input-field col s12">
                 <i class="material-icons prefix">email</i>
-                <input onChange={(e) => this.setState({ email: e.target.value })} value={this.state.email} type="email" id="email" class="autocomplete" />
+                <input onChange={(e) => this.setState({ email: e.target.value })} value={this.state.email} type="email" id="email" class="autocomplete" required/>
                 <label for="autocomplete-input">E-Mail</label>
               </div>
               <div class="input-field col s12">
                 <i class="material-icons prefix">place</i>
-                <input onChange={(e) => this.setState({ place: e.target.value })} value={this.state.place} type="text" id="einsatzort" class="autocomplete" />
+                <input onChange={(e) => this.setState({ place: e.target.value })} value={this.state.place} type="text" id="einsatzort" pattern="[A-Za-z]{1,30}" class="autocomplete" required/>
                 <label for="autocomplete-input">Einsatzort</label>
               </div>
-              <button class="btn waves-effect waves-light right" type="submit" name="action">Absenden
+              <button class="btn waves-effect waves-light right"  type="submit" name="action">Absenden
                 <i class="material-icons right">send</i>
               </button>
+
+              
             </form>
           </div>
           <div className="col s7">
